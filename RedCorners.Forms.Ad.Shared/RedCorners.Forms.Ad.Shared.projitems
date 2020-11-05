@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>29e5842d-1613-40dd-8302-ae6663ddd782</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>RedCorners.Forms.Ad</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AdMob.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AdMobBannerView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AdSystem.cs" />
+  </ItemGroup>
+</Project>

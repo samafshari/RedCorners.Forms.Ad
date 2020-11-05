@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedCorners.Forms.Ad.iOS", "RedCorners.Forms.Ad.iOS\RedCorners.Forms.Ad.iOS.csproj", "{F2B2B597-BA5E-4C94-83C8-23EE684A1EE3}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "RedCorners.Forms.Ad.Shared", "RedCorners.Forms.Ad.Shared\RedCorners.Forms.Ad.Shared.shproj", "{29E5842D-1613-40DD-8302-AE6663DDD782}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		RedCorners.Forms.Ad.Shared\RedCorners.Forms.Ad.Shared.projitems*{29e5842d-1613-40dd-8302-ae6663ddd782}*SharedItemsImports = 13
+		RedCorners.Forms.Ad.Shared\RedCorners.Forms.Ad.Shared.projitems*{f2b2b597-ba5e-4c94-83c8-23ee684a1ee3}*SharedItemsImports = 4
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2B2B597-BA5E-4C94-83C8-23EE684A1EE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2B2B597-BA5E-4C94-83C8-23EE684A1EE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2B2B597-BA5E-4C94-83C8-23EE684A1EE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2B2B597-BA5E-4C94-83C8-23EE684A1EE3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DE5F1734-E140-4340-9AF5-B563AB6430A6}
+	EndGlobalSection
+EndGlobal
