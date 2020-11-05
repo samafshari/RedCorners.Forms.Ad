@@ -269,3 +269,4 @@ packages_/
 bower_components/
 
 Resource.designer.cs
+*.nupkg

@@ -25,7 +25,6 @@ namespace RedCorners.Forms.Ad
         }
 
         public bool IsEnabled { get; set; } = true;
-        public string BannerId { get; set; }
         public string[] TestDevices { get; set; }
         public bool IsSimulatorTestDevice { get; set; } = true;
         public string[] Keywords { get; set; }

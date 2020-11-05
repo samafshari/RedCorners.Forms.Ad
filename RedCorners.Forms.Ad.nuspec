@@ -3,16 +3,13 @@
 	<metadata minClientVersion="2.8.3">
 		<id>RedCorners.Forms.Ad</id>
 		<title>RedCorners.Forms.Ad</title>
-		<version>8.53.0-alpha</version>
+		<version>8.54.0-alpha</version>
 		<releaseNotes>	</releaseNotes>
 		<authors>NeatCapital OÜ</authors>
 		<owners>NeatCapital OÜ</owners>
 		<copyright>Copyright 2020 NeatCapital OÜ</copyright>
-		<iconUrl></iconUrl>
-		<icon></icon>
-		<license type="file">LICENSE.txt</license>
-    <projectUrl></projectUrl>
-  	<description>Ad Plugins</description>
+		<license type="file">license.txt</license>
+	  	<description>Ad Plugins</description>
 		<summary>Ad Plugins</summary>
 		<tags>xamarin forms maps xamarinforms ads admob banner interstitial</tags>
 	<dependencies>
@@ -24,11 +21,11 @@
 	</metadata>
 	<files>
 		<!--License-->
-		<file src="LICENSE.txt" target="" />
+		<file src="license.txt" target="" />
 
 		<!--Xamarin.iOS-->
 		<file 
-			src="RedCorners.Forms.Ad\RedCorners.Forms.Ad.iOS\bin\Release\RedCorners.Forms.Ad.iOS.dll" 
+			src="RedCorners.Forms.Ad.iOS\bin\Release\RedCorners.Forms.Ad.iOS.dll" 
 			target="lib\Xamarin.iOS10\RedCorners.Forms.Ad.iOS.dll" />			
 	</files>
 </package>
