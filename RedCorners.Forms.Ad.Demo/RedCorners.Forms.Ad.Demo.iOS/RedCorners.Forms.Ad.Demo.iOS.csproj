@@ -197,4 +197,9 @@
   </ItemGroup>
   <Import Project="..\RedCorners.Forms.Ad.Demo\RedCorners.Forms.Ad.Demo.projitems" Condition="Exists('..\RedCorners.Forms.Ad.Demo\RedCorners.Forms.Ad.Demo.projitems')" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties TriggeredFromHotReload="False" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
