@@ -5,6 +5,8 @@ using Xamarin.Forms;
 
 #if __ANDROID__
 using Xamarin.Forms.Platform.Android;
+using global::Android.Content;
+using global::Android.Gms.Ads;
 #else
 using Xamarin.Forms.Platform.iOS;
 using Google.MobileAds;
@@ -23,6 +25,11 @@ namespace RedCorners.Forms.Ad
 
     public class AdMobBannerView : View
     {
+        public AdMobBannerView()
+        {
+            HeightRequest = 100;
+        }
+
         public static readonly BindableProperty BannerSizeProperty = BindableProperty.Create(
            propertyName: nameof(BannerSize),
            returnType: typeof(AdMobBannerSizes),
@@ -34,7 +41,7 @@ namespace RedCorners.Forms.Ad
             get => (AdMobBannerSizes)GetValue(BannerSizeProperty);
             set => SetValue(BannerSizeProperty, value);
         }
-        
+
         public static readonly BindableProperty UnitIdProperty = BindableProperty.Create(
            propertyName: nameof(UnitId),
            returnType: typeof(string),
@@ -45,7 +52,7 @@ namespace RedCorners.Forms.Ad
             get => (string)GetValue(UnitIdProperty);
             set => SetValue(UnitIdProperty, value);
         }
-        
+
         public static readonly BindableProperty AdMobProperty = BindableProperty.Create(
            propertyName: nameof(AdMob),
            returnType: typeof(AdMob),
@@ -63,37 +70,66 @@ namespace RedCorners.Forms.Ad
     {
         public class AdMobBannerViewRenderer : ViewRenderer
         {
+#if __ANDROID__
+            public AdMobBannerViewRenderer(Context context) : base(context)
+            {
+
+            }
+#endif
+
+            [Obsolete]
             public AdMobBannerViewRenderer() { }
 
 #if __ANDROID__
-        protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.View> e)
-        {
-            base.OnElementChanged(e);
-            if (Control == null)
+            AdView bannerView;
+
+            protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.View> e)
             {
-                var adsbanner = (BannerAd)Element;
-                //var adview = new Android.Gms.Ads.NativeExpressAdView(Context);
-                //adview.AdUnitId = Constants.NativeAdId;
-                //adview.AdSize = AdSize.SmartBanner;
-                var adview = new AdView(Context);
-        if (adsbanner.AdSize == BannerAdSizes.LargeBanner)
-                adview.AdSize = AdSize.LargeBanner;
-        else if (adsbanner.AdSize == BannerAdSizes.MediumRectangle)
-        adview.AdSize = AdSize.MediumRectangle;
-                adview.AdUnitId = Vars.BannerId;
+                base.OnElementChanged(e);
+                if (Control == null)
+                {
+                    var view = (AdMobBannerView)Element;
+                    view.PropertyChanging += View_PropertyChanging;
 
-                base.SetNativeControl(adview);
+                    //var adview = new Android.Gms.Ads.NativeExpressAdView(Context);
+                    //adview.AdUnitId = Constants.NativeAdId;
+                    //adview.AdSize = AdSize.SmartBanner;
+                    bannerView = new AdView(Context);
 
-                var requestbuilder = new AdRequest.Builder()
-#if DEBUG
-                    .AddTestDevice("ED7EA56976FC3A16579281D56DB108F8")
-                    .AddTestDevice("8EBFBD0CEA9400AE134EB85743BD37E2")
-#endif
-                    .AddKeyword("luxembourg");
-                adview.LoadAd(requestbuilder.Build());
-                adview.SetBackgroundColor(Android.Graphics.Color.Transparent);
+                    if (view.BannerSize == AdMobBannerSizes.LargeBanner)
+                        bannerView.AdSize = AdSize.LargeBanner;
+                    else if (view.BannerSize == AdMobBannerSizes.MediumRectangle)
+                        bannerView.AdSize = AdSize.MediumRectangle;
+
+                    bannerView.AdUnitId = view.UnitId;
+
+                    base.SetNativeControl(bannerView);
+
+                    if (view.AdMob != null)
+                    {
+                        view.AdMob.Context = Context;
+                        var request = view.AdMob.GetDefaultRequest();
+
+                        if (!string.IsNullOrWhiteSpace(bannerView.AdUnitId))
+                            bannerView.LoadAd(request);
+                    }
+
+                    bannerView.SetBackgroundColor(global::Android.Graphics.Color.Transparent);
+                }
             }
-        }
+
+            private void View_PropertyChanging(object sender, PropertyChangingEventArgs e)
+            {
+                var view = Element as AdMobBannerView;
+
+                if (e.PropertyName == nameof(AdMob) || e.PropertyName == nameof(view.UnitId))
+                {
+                    view.AdMob.Context = Context;
+                    var request = view.AdMob.GetDefaultRequest();
+                    if (!string.IsNullOrWhiteSpace(bannerView.AdUnitId))
+                        bannerView.LoadAd(request);
+                }
+            }
 #elif __IOS__
             BannerView bannerView;
             bool viewOnScreen = false;

@@ -11,6 +11,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AdMob.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AdMobBannerView.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)AdSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AdBase.cs" />
   </ItemGroup>
 </Project>

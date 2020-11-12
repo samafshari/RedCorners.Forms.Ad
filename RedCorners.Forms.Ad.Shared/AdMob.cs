@@ -10,12 +10,13 @@ using Xamarin.Forms.Platform.iOS;
 #endif
 
 #if __ANDROID__
-using Android.Gms.Ads;
+using global::Android.Content;
+using global::Android.Gms.Ads;
 #endif
 
 namespace RedCorners.Forms.Ad
 {
-    public class AdMob : IAd
+    public class AdMob : AdBase
     {
         public enum Genders : long
         {
@@ -33,28 +34,91 @@ namespace RedCorners.Forms.Ad
         public (float Latitude, float Longitude)? Location { get; set; }
 
 #if __ANDROID__
+        public Context Context { get; set; }
+
         class MyAdListener : AdListener
         {
+            readonly AdMob adMob;
+
+            public MyAdListener(AdMob adMob)
+            {
+                this.adMob = adMob;
+            }
+
             public override void OnAdClosed()
             {
-                AdmobPlugin.Instance.LoadAd();
+                adMob.LoadAd();
             }
         }
-#endif
 
-#if __IOS__
-        Interstitial adInterstitial;
-#endif
-#if __ANDROID__
         InterstitialAd adInterstitial;
         AdRequest request;
-#endif
+        public AdMob(Context context = null)
+        {
+            this.Context = context;
+        }
 
+        public void CreateAndRequestInterstitial(string interstitialId)
+        {
+            adInterstitial = new InterstitialAd(Context);
+            adInterstitial.AdUnitId = interstitialId;
+            adInterstitial.AdListener = new MyAdListener(this);
+            LoadAd();
+        }
+
+        public void LoadAd()
+        {
+            if (!IsEnabled)
+                return;
+
+            request = GetDefaultRequest();
+            adInterstitial.LoadAd(request);
+        }
+
+        public AdRequest GetDefaultRequest()
+        {
+            var request = new AdRequest.Builder();
+
+            var testDevices = MobileAds.RequestConfiguration.TestDeviceIds;
+            if (IsSimulatorTestDevice)
+                testDevices.Add(AdRequest.DeviceIdEmulator);
+
+            if (TestDevices != null)
+                foreach (var device in TestDevices)
+                    testDevices.Add(device);
+
+            if (Keywords != null)
+                foreach (var keyword in Keywords)
+                    request.AddKeyword(keyword);
+
+            if (Birthday != null)
+            {
+                request.SetBirthday(new Java.Util.Date(
+                    Birthday.Value.Year,
+                    Birthday.Value.Month,
+                    Birthday.Value.Day));
+            }
+
+            if (Gender != null)
+                request.SetGender((int)Gender.Value);
+
+            if (Location != null)
+            {
+                var l = new global::Android.Locations.Location("x");
+                l.Latitude = Location.Value.Latitude;
+                l.Longitude = Location.Value.Longitude;
+                request.SetLocation(l);
+            }
+
+            return request.Build();
+        }
+#elif __IOS__
+        Interstitial adInterstitial;
+        
         public AdMob()
         {
         }
 
-#if __IOS__
         public void CreateAndRequestInterstitial(string interstitialId)
         {
             if (!IsEnabled)
@@ -107,28 +171,6 @@ namespace RedCorners.Forms.Ad
             return request;
         }
 
-#else
-        public void CreateAndRequestInterstitial()
-        {
-            adInterstitial = new InterstitialAd(Forms.Context);
-            adInterstitial.AdUnitId = Vars.InterstitialId;
-            adInterstitial.AdListener = new MyAdListener();
-            LoadAd();
-        }
-
-        public void LoadAd()
-        {
-            if (!IsAdEnabled)
-                return;
-
-            request = new AdRequest.Builder()
-                .AddKeyword("luxembourg")
-#if DEBUG
-                .AddTestDevice("ED7EA56976FC3A16579281D56DB108F8")
-#endif
-                .Build();
-            adInterstitial.LoadAd(request);
-        }
 #endif
 
         public void ShowInterstitial(Page page)
@@ -147,16 +189,11 @@ namespace RedCorners.Forms.Ad
 
             if (adInterstitial.IsReady)
                 adInterstitial.Present(viewController);
-#endif
-#if __ANDROID__
+#elif __ANDROID__
             if (adInterstitial.IsLoaded)
             {
                 adInterstitial.Show();
-                LogSystem.Instance.TrackEvent("ShowAd");
             }
-            else if (adInterstitial.IsLoading)
-                LogSystem.Instance.TrackEvent("LoadingAd");
-            else LogSystem.Instance.TrackEvent("IgnoreAd");
 #endif
         }
     }

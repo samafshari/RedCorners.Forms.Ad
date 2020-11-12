@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<rf:ContentPage2
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:rf="clr-namespace:RedCorners.Forms;assembly=RedCorners.Forms"
+    xmlns:vm="clr-namespace:RedCorners.Forms.Ad.Demo.ViewModels"
+    xmlns:ad="clr-namespace:RedCorners.Forms.Ad;assembly=RedCorners.Forms.Ad"
+    xmlns:app="clr-namespace:RedCorners.Forms.Ad.Demo"
+    mc:Ignorable="d"
+    x:Class="RedCorners.Forms.Ad.Demo.Views.MainPage">
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <StackLayout HorizontalOptions="Fill">
+            <ad:AdMobBannerView
+                UnitId="{Static app:App.BannerId}" />
+            <Button 
+                Text="Interstitial"
+                x:Name="Btn_Interstitial"
+                Clicked="Btn_Interstitial_Clicked" />
+        </StackLayout>
+    </Grid>
+</rf:ContentPage2>

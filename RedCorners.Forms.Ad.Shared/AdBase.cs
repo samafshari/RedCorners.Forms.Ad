@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace RedCorners.Forms.Ad
 {
-    public abstract class IAd
+    public abstract class AdBase
     {
     }
 }
