@@ -45,7 +45,8 @@ namespace RedCorners.Forms.Ad
         public static readonly BindableProperty UnitIdProperty = BindableProperty.Create(
            propertyName: nameof(UnitId),
            returnType: typeof(string),
-           declaringType: typeof(AdMobBannerView));
+           declaringType: typeof(AdMobBannerView),
+           defaultValue: "ca-app-pub-3940256099942544/6300978111");
 
         public string UnitId
         {
@@ -75,9 +76,9 @@ namespace RedCorners.Forms.Ad
             {
 
             }
-#endif
-
+            
             [Obsolete]
+#endif
             public AdMobBannerViewRenderer() { }
 
 #if __ANDROID__

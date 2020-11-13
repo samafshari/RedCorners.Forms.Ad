@@ -24,7 +24,7 @@ namespace RedCorners.Forms.Ad.Demo.Views
 #if __ANDROID__
             adMob.Context = Android.MainActivity.Context;
 #endif
-            adMob.CreateAndRequestInterstitial(App.InterstitialId);
+            adMob.CreateAndRequestInterstitial();
         }
 
         private void Btn_Interstitial_Clicked(object sender, EventArgs e)

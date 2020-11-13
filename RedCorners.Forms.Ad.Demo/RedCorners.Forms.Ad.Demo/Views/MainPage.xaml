@@ -15,13 +15,17 @@
     </ContentPage.BindingContext>
 
     <Grid>
-        <StackLayout HorizontalOptions="Fill">
-            <ad:AdMobBannerView
-                UnitId="{Static app:App.BannerId}" />
-            <Button 
-                Text="Interstitial"
-                x:Name="Btn_Interstitial"
-                Clicked="Btn_Interstitial_Clicked" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout HorizontalOptions="Fill">
+                <ad:AdMobBannerView />
+                <Button 
+                    Text="Interstitial"
+                    x:Name="Btn_Interstitial"
+                    Clicked="Btn_Interstitial_Clicked" />
+                <ad:AdMobNativeView
+                    HeightRequest="500"
+                    BackgroundColor="Yellow" />
+            </StackLayout>
+        </ScrollView>
     </Grid>
 </rf:ContentPage2>

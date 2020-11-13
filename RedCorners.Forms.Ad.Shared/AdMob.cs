@@ -17,7 +17,20 @@ using global::Android.Gms.Ads;
 namespace RedCorners.Forms.Ad
 {
     public class AdMob : AdBase
-    {
+    {        
+        //App Open    ca-app-pub-3940256099942544/3419835294
+        //Banner ca-app-pub-3940256099942544/6300978111
+        //Interstitial ca-app-pub-3940256099942544/1033173712
+        //Interstitial Video  ca-app-pub-3940256099942544/8691691433
+        //Rewarded Video  ca-app-pub-3940256099942544/5224354917
+        //Native Advanced ca-app-pub-3940256099942544/2247696110
+        //Native Advanced Video ca-app-pub-3940256099942544/1044960115
+
+        public const string TestInterstitialId = "ca-app-pub-3940256099942544/1033173712";
+        public const string TestBannerId = "ca-app-pub-3940256099942544/6300978111";
+        public const string TestNativeAdvancedId = "ca-app-pub-3940256099942544/2247696110";
+        public const string TestNativeAdvancedVideoId = "ca-app-pub-3940256099942544/2247696110";
+
         public enum Genders : long
         {
             Unknown,
@@ -58,7 +71,7 @@ namespace RedCorners.Forms.Ad
             this.Context = context;
         }
 
-        public void CreateAndRequestInterstitial(string interstitialId)
+        public void CreateAndRequestInterstitial(string interstitialId = TestInterstitialId)
         {
             adInterstitial = new InterstitialAd(Context);
             adInterstitial.AdUnitId = interstitialId;
