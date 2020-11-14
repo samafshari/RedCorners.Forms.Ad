@@ -141,16 +141,6 @@ namespace RedCorners.Forms.Ad
                 if (e.NewElement == null) return;
                 if (e.OldElement == null)
                 {
-                    UIViewController viewCtrl = null;
-
-                    foreach (UIWindow v in UIApplication.SharedApplication.Windows)
-                    {
-                        if (v.RootViewController != null)
-                        {
-                            viewCtrl = v.RootViewController;
-                        }
-                    }
-
                     var view = (AdMobBannerView)Element;
                     view.PropertyChanged += View_PropertyChanged;
                     var size = AdSizeCons.LargeBanner;
@@ -159,7 +149,7 @@ namespace RedCorners.Forms.Ad
                     bannerView = new BannerView(size: AdSizeCons.LargeBanner, origin: new CGPoint(0, 0))
                     {
                         AdUnitId = view.UnitId,
-                        RootViewController = viewCtrl
+                        RootViewController = ViewController 
                     };
 
                     bannerView.AdReceived += (sender, args) =>

@@ -20,13 +20,54 @@ namespace RedCorners.Forms.Ad.Android.Renderers
         class MyAdListener : AdListener
         {
             readonly AdMobNativeViewRenderer renderer;
+            AdMobNativeView View => renderer.Element as AdMobNativeView;
 
             public MyAdListener(AdMobNativeViewRenderer renderer)
             {
                 this.renderer = renderer;
             }
 
-            // TODO: Override Methods
+            public override void OnAdClicked()
+            {
+                base.OnAdClicked();
+                View?.TriggerAdClicked();
+            }
+
+            public override void OnAdClosed()
+            {
+                base.OnAdClosed();
+                View?.TriggerAdClosed();
+            }
+
+            public override void OnAdImpression()
+            {
+                base.OnAdImpression();
+                View?.TriggerAdImpression();
+            }
+
+            public override void OnAdFailedToLoad(int p0)
+            {
+                base.OnAdFailedToLoad(p0);
+                View?.TriggerAdFailedToLoad(p0);
+            }
+
+            public override void OnAdOpened()
+            {
+                base.OnAdOpened();
+                View?.TriggerAdOpened();
+            }
+
+            public override void OnAdLeftApplication()
+            {
+                base.OnAdLeftApplication();
+                View?.TriggerAdLeftApplication();
+            }
+
+            public override void OnAdLoaded()
+            {
+                base.OnAdLoaded();
+                View?.TriggerAdLoaded();
+            }
         }
 
         AdLoader adLoader;
@@ -50,7 +91,7 @@ namespace RedCorners.Forms.Ad.Android.Renderers
                 LoadAds();
                 e.NewElement.PropertyChanged += NewElement_PropertyChanged;
             }
-            else if (e.OldElement != null)
+            if (e.OldElement != null)
             {
                 e.OldElement.PropertyChanged -= NewElement_PropertyChanged;
             }
@@ -103,6 +144,7 @@ namespace RedCorners.Forms.Ad.Android.Renderers
             {
                 // The AdLoader is still loading ads.
                 // Expect more adLoaded or onAdFailedToLoad callbacks.
+                view.TriggerAdLoading();
             }
             else
             {
@@ -116,6 +158,7 @@ namespace RedCorners.Forms.Ad.Android.Renderers
                 SetNativeControl(aview);
                 template.SetStyles(styles);
                 template.SetNativeAd(ad);
+                view.TriggerAdRendered();
                 //var inflater = Context.GetSystemService(Context.LayoutInflaterService)
                 //    as LayoutInflater;
                 //

@@ -13,6 +13,16 @@ namespace RedCorners.Forms.Ad
 
     public class AdMobNativeView : View
     {
+        public event EventHandler OnAdClicked;
+        public event EventHandler OnAdClosed;
+        public event EventHandler OnAdImpression;
+        public event EventHandler<int> OnAdFailedToLoad;
+        public event EventHandler OnAdOpened;
+        public event EventHandler OnAdLeftApplication;
+        public event EventHandler OnAdLoaded;
+        public event EventHandler OnAdRendered;
+        public event EventHandler OnAdLoading;
+
         public static readonly BindableProperty UnitIdProperty = BindableProperty.Create(
            propertyName: nameof(UnitId),
            returnType: typeof(string),
@@ -47,6 +57,51 @@ namespace RedCorners.Forms.Ad
         {
             get => (AdMobNativeTemplates)GetValue(NativeTemplateProperty);
             set => SetValue(NativeTemplateProperty, value);
+        }
+
+        internal void TriggerAdClicked()
+        {
+            OnAdClicked?.Invoke(this, null);
+        }
+
+        internal void TriggerAdClosed()
+        {
+            OnAdClosed?.Invoke(this, null);
+        }
+
+        internal void TriggerAdImpression()
+        {
+            OnAdImpression?.Invoke(this, null);
+        }
+
+        internal void TriggerAdFailedToLoad(int p0)
+        {
+            OnAdFailedToLoad?.Invoke(this, p0);
+        }
+
+        internal void TriggerAdOpened()
+        {
+            OnAdOpened?.Invoke(this, null);
+        }
+
+        internal void TriggerAdLeftApplication()
+        {
+            OnAdLeftApplication?.Invoke(this, null);
+        }
+
+        internal void TriggerAdLoaded()
+        {
+            OnAdLoaded?.Invoke(this, null);
+        }
+
+        internal void TriggerAdRendered()
+        {
+            OnAdRendered?.Invoke(this, null);
+        }
+
+        internal void TriggerAdLoading()
+        {
+            OnAdLoading?.Invoke(this, null);
         }
     }
 }

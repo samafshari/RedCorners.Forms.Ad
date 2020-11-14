@@ -132,7 +132,7 @@ namespace RedCorners.Forms.Ad
         {
         }
 
-        public void CreateAndRequestInterstitial(string interstitialId)
+        public void CreateAndRequestInterstitial(string interstitialId = TestInterstitialId)
         {
             if (!IsEnabled)
                 return;

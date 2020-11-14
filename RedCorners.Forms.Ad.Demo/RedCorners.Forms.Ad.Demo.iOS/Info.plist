@@ -61,6 +61,16 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs access to location to continue.</string>
 
+  <key>NSAppTransportSecurity</key>
+  <dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+    <key>NSAllowsArbitraryLoadsForMedia</key>
+    <true/>
+    <key>NSAllowsArbitraryLoadsInWebContent</key>
+    <true/>
+  </dict>
+
   <key>GADApplicationIdentifier</key>
   <string>ca-app-pub-3940256099942544~1458002511</string>
   <key>SKAdNetworkItems</key>

@@ -25,6 +25,25 @@ namespace RedCorners.Forms.Ad.Demo.Views
             adMob.Context = Android.MainActivity.Context;
 #endif
             adMob.CreateAndRequestInterstitial();
+
+            AdNativeSmall.OnAdImpression += AdNativeSmall_OnAdImpression;
+            AdNativeSmall.OnAdClicked += AdNativeSmall_OnAdClicked;
+            AdNativeSmall.OnAdFailedToLoad += AdNativeSmall_OnAdFailedToLoad;
+        }
+
+        private void AdNativeSmall_OnAdFailedToLoad(object sender, int e)
+        {
+            Console.WriteLine("Failed");
+        }
+
+        private void AdNativeSmall_OnAdClicked(object sender, EventArgs e)
+        {
+            Console.WriteLine("Clicked");
+        }
+
+        private void AdNativeSmall_OnAdImpression(object sender, EventArgs e)
+        {
+            Console.WriteLine("Impression");
         }
 
         private void Btn_Interstitial_Clicked(object sender, EventArgs e)
