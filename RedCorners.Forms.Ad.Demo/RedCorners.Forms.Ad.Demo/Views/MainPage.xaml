@@ -9,7 +9,9 @@
     xmlns:ad="clr-namespace:RedCorners.Forms.Ad;assembly=RedCorners.Forms.Ad"
     xmlns:app="clr-namespace:RedCorners.Forms.Ad.Demo"
     mc:Ignorable="d"
-    x:Class="RedCorners.Forms.Ad.Demo.Views.MainPage">
+    x:Class="RedCorners.Forms.Ad.Demo.Views.MainPage"
+    FixTopPadding="True"
+    FixBottomPadding="True">
     <ContentPage.BindingContext>
         <vm:MainViewModel />
     </ContentPage.BindingContext>
@@ -22,9 +24,8 @@
                     Text="Interstitial"
                     x:Name="Btn_Interstitial"
                     Clicked="Btn_Interstitial_Clicked" />
-                <ad:AdMobNativeView
-                    HeightRequest="500"
-                    BackgroundColor="Yellow" />
+                <ad:AdMobNativeView HeightRequest="200" NativeTemplate="Small" />
+                <ad:AdMobNativeView HeightRequest="500" NativeTemplate="Medium" />
             </StackLayout>
         </ScrollView>
     </Grid>

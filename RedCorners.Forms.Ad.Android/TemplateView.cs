@@ -54,6 +54,7 @@ namespace RedCorners.Forms.Ad.Android
 
         public TemplateView(Context context) : base(context)
         {
+            //InitView(context, null);
         }
 
         public TemplateView(Context context, IAttributeSet attrs) : base(context, attrs)
@@ -72,24 +73,28 @@ namespace RedCorners.Forms.Ad.Android
             InitView(context, attrs);
         }
 
-        void InitView(Context context, IAttributeSet attributeSet)
+        public View InitView(Context context, IAttributeSet attributeSet, AdMobNativeTemplates template = AdMobNativeTemplates.Medium)
         {
-            TypedArray attributes =
-                context.Theme.ObtainStyledAttributes(attributeSet, Resource.Styleable.TemplateView, 0, 0);
+            //TypedArray attributes =
+            //    context.Theme.ObtainStyledAttributes(attributeSet, Resource.Styleable.TemplateView, 0, 0);
 
-            try
-            {
-                templateType = attributes.GetResourceId(
-                    Resource.Styleable.TemplateView_gnt_template_type,
-                    Resource.Layout.gnt_medium_template_view); // TODO: Flag to use small
-            }
-            finally
-            {
-                attributes.Recycle();
-            }
+            //try
+            //{
+            //    templateType = attributes.GetResourceId(
+            //        Resource.Styleable.TemplateView_gnt_template_type,
+            //        Resource.Layout.gnt_medium_template_view); // TODO: Flag to use small
+            //}
+            //finally
+            //{
+            //    attributes.Recycle();
+            //}
 
+            if (template == AdMobNativeTemplates.Medium)
+                templateType = Resource.Layout.gnt_medium_template_view;
+            else
+                templateType = Resource.Layout.gnt_small_template_view;
             LayoutInflater inflater = (LayoutInflater)context.GetSystemService(Context.LayoutInflaterService);
-            inflater.Inflate(templateType, this);
+            return inflater.Inflate(templateType, this);
         }
 
         public void SetStyles(NativeTemplateStyle styles)
@@ -169,6 +174,8 @@ namespace RedCorners.Forms.Ad.Android
 
         public void SetNativeAd(UnifiedNativeAd nativeAd)
         {
+            PostInflate();
+
             this.nativeAd = nativeAd;
 
             nativeAdView.CallToActionView = callToActionView;
@@ -247,6 +254,11 @@ namespace RedCorners.Forms.Ad.Android
         protected override void OnFinishInflate()
         {
             base.OnFinishInflate();
+            PostInflate();
+        }
+
+        void PostInflate()
+        {
             nativeAdView = FindViewById<UnifiedNativeAdView>(Resource.Id.native_ad_view);
             primaryView = FindViewById<TextView>(Resource.Id.primary);
             secondaryView = FindViewById<TextView>(Resource.Id.secondary);

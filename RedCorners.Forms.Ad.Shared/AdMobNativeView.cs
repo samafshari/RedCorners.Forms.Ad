@@ -17,7 +17,7 @@ namespace RedCorners.Forms.Ad
            propertyName: nameof(UnitId),
            returnType: typeof(string),
            declaringType: typeof(AdMobNativeView),
-           defaultValue: AdMob.TestNativeAdvancedId);
+           defaultValue: AdMob.TestNativeAdvancedVideoId);
 
         public string UnitId
         {
@@ -36,18 +36,6 @@ namespace RedCorners.Forms.Ad
             get => (AdMob)GetValue(AdMobProperty);
             set => SetValue(AdMobProperty, value);
         }
-
-        //public static readonly BindableProperty MaxNumberOfAdsProperty = BindableProperty.Create(
-        //   propertyName: nameof(MaxNumberOfAds),
-        //   returnType: typeof(int),
-        //   declaringType: typeof(AdMobNativeView),
-        //   defaultValue: 3);
-
-        //public int MaxNumberOfAds
-        //{
-        //    get => (int)GetValue(MaxNumberOfAdsProperty);
-        //    set => SetValue(MaxNumberOfAdsProperty, value);
-        //}
 
         public static readonly BindableProperty NativeTemplateProperty = BindableProperty.Create(
            propertyName: nameof(NativeTemplate),

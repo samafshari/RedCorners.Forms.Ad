@@ -48,7 +48,31 @@ namespace RedCorners.Forms.Ad.Android.Renderers
             if (e.NewElement != null)
             {
                 LoadAds();
+                e.NewElement.PropertyChanged += NewElement_PropertyChanged;
             }
+            else if (e.OldElement != null)
+            {
+                e.OldElement.PropertyChanged -= NewElement_PropertyChanged;
+            }
+        }
+
+        void LoadAds()
+        {
+            if (adLoader == null)
+                CreateAdLoader();
+
+            if (adLoader == null)
+                return;
+
+            var view = Element as AdMobNativeView;
+            adLoader.LoadAd(view.AdMob.GetDefaultRequest());
+        }
+
+        private void NewElement_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(AdMobNativeView.AdMob) ||
+                e.PropertyName == nameof(AdMobNativeView.UnitId))
+                LoadAds();
         }
 
         void CreateAdLoader()
@@ -73,6 +97,7 @@ namespace RedCorners.Forms.Ad.Android.Renderers
         public void OnUnifiedNativeAdLoaded(UnifiedNativeAd ad)
         {
             // TODO: Show the ad.
+            var view = Element as AdMobNativeView;
 
             if (adLoader.IsLoading)
             {
@@ -82,31 +107,27 @@ namespace RedCorners.Forms.Ad.Android.Renderers
             else
             {
                 // The AdLoader has finished loading ads.
-                var inflater = Context.GetSystemService(Context.LayoutInflaterService)
-                    as LayoutInflater;
+                var styles = new NativeTemplateStyle
+                {
+                };
 
-                var root = new UnifiedNativeAdView(Context);
-                var nativeAdView = (UnifiedNativeAdView)
-                    inflater.Inflate(Resource.Layout.gnt_medium_template_view, root);
-
-                nativeAdView.MediaView = nativeAdView.FindViewById<MediaView>(Resource.Id.media_view);
-
-                nativeAdView.SetNativeAd(ad);
-                SetNativeControl(nativeAdView);
+                var template = new TemplateView(Context);
+                var aview = template.InitView(Context, null, view.NativeTemplate);
+                SetNativeControl(aview);
+                template.SetStyles(styles);
+                template.SetNativeAd(ad);
+                //var inflater = Context.GetSystemService(Context.LayoutInflaterService)
+                //    as LayoutInflater;
+                //
+                //var root = new UnifiedNativeAdView(Context);
+                //var nativeAdView = (UnifiedNativeAdView)
+                //    inflater.Inflate(Resource.Layout.gnt_medium_template_view, root);
+                //
+                //nativeAdView.MediaView = nativeAdView.FindViewById<MediaView>(Resource.Id.media_view);
+                //
+                //nativeAdView.SetNativeAd(ad);
 
             }
-        }
-
-        void LoadAds()
-        {
-            if (adLoader == null)
-                CreateAdLoader();
-
-            if (adLoader == null)
-                return;
-
-            var view = Element as AdMobNativeView;
-            adLoader.LoadAd(view.AdMob.GetDefaultRequest());
         }
     }
 }
