@@ -7,14 +7,15 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using global::Android.Content;
 using global::Android.Gms.Ads;
-#else
+[assembly: ExportRenderer(typeof(RedCorners.Forms.Ad.AdMobBannerView), typeof(RedCorners.Forms.Ad.Renderers.AdMobBannerViewRenderer))]
+#elif __IOS__
 using Xamarin.Forms.Platform.iOS;
 using Google.MobileAds;
 using CoreGraphics;
 using UIKit;
+[assembly: ExportRenderer(typeof(RedCorners.Forms.Ad.AdMobBannerView), typeof(RedCorners.Forms.Ad.Renderers.AdMobBannerViewRenderer))]
 #endif
 
-[assembly: ExportRenderer(typeof(RedCorners.Forms.Ad.AdMobBannerView), typeof(RedCorners.Forms.Ad.Renderers.AdMobBannerViewRenderer))]
 namespace RedCorners.Forms.Ad
 {
     public enum AdMobBannerSizes
@@ -67,6 +68,7 @@ namespace RedCorners.Forms.Ad
         }
     }
 
+#if __ANDROID__ || __IOS__
     namespace Renderers
     {
         public class AdMobBannerViewRenderer : ViewRenderer
@@ -198,4 +200,5 @@ namespace RedCorners.Forms.Ad
 #endif
         }
     }
+#endif
 }

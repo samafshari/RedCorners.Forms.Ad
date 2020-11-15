@@ -36,9 +36,7 @@
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="MediumTemplateView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -55,10 +53,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="GADTMediumTemplateView.xib" />
+    <InterfaceDefinition Include="Resources\GADTMediumTemplateView.xib" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="GADTSmallTemplateView.xib" />
+    <InterfaceDefinition Include="Resources\GADTSmallTemplateView.xib" />
   </ItemGroup>
   <Import Project="..\RedCorners.Forms.Ad.Shared\RedCorners.Forms.Ad.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

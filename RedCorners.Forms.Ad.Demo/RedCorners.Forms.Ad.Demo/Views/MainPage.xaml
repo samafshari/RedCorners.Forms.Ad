@@ -28,8 +28,17 @@
                     x:Name="AdNativeSmall"
                     HeightRequest="200" 
                     NativeTemplate="Small" 
+                    AdClickedAction="{Binding AdClickedAction}"
+                    AdClosedAction="{Binding AdClosedAction}"
+                    AdImpressionAction="{Binding AdImpressionAction}"
                     />
-                <ad:AdMobNativeView HeightRequest="500" NativeTemplate="Medium" />
+                <ad:AdMobNativeView 
+                    HeightRequest="500" 
+                    NativeTemplate="Medium"
+                    AdClickedAction="{Binding AdClickedAction}"
+                    AdClosedAction="{Binding AdClosedAction}"
+                    AdImpressionAction="{Binding AdImpressionAction}"
+                    />
             </StackLayout>
         </ScrollView>
     </Grid>

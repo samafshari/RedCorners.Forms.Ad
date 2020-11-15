@@ -13,6 +13,7 @@ using Xamarin.Forms.Platform.iOS;
 
 namespace RedCorners.Forms.Ad.iOS
 {
+    [Register("GADTTemplateView")]
     public class TemplateView : UnifiedNativeAdView
     {
         const string StyleKeyCallToActionFont = @"call_to_action_font";
@@ -30,19 +31,16 @@ namespace RedCorners.Forms.Ad.iOS
         const string StyleKeyMainBackgroundColor = @"main_background_color";
         const string StyleKeyCornerRadius = @"corner_radius";
 
-        const string Blue = "#5C84F0";
+        public Dictionary<string, NSObject> Styles { get; set; } = new Dictionary<string, NSObject>();
 
-        Dictionary<string, NSObject> styles;
-        
-        UILabel
-            primaryTextView,
-            secondaryTextView,
-            tertiaryTextView,
-            adBadge;
+        [Outlet] UILabel primaryTextView { get; set; }
+        [Outlet] UILabel secondaryTextView { get; set; }
+        [Outlet] UILabel tertiaryTextView { get; set; }
+        [Outlet] UILabel adBadge { get; set; }
 
-        UIImageView brandImage;
-        UIView backgroundView;
-        UIView rootView;
+        [Outlet] UIImageView brandImage { get; set; }
+        [Outlet] UIView backgroundView { get; set; }
+        [Outlet] UIView rootView { get; set; }
 
         public TemplateView(CGRect frame, string nibName) : base(frame)
         {
@@ -60,8 +58,8 @@ namespace RedCorners.Forms.Ad.iOS
 
         NSObject GetStyleForKey(string key)
         {
-            if (styles != null && styles.TryGetValue(key, out var val))
-                    return val;
+            if (Styles != null && Styles.TryGetValue(key, out var val))
+                return val;
             return null;
         }
 
@@ -88,7 +86,7 @@ namespace RedCorners.Forms.Ad.iOS
             // Fonts
             if (HasStyleForKey(StyleKeyPrimaryFont))
                 primaryTextView.Font = (UIFont)GetStyleForKey(StyleKeyPrimaryFont);
-            if (HasStyleForKey(StyleKeySecondaryFont))
+            if (secondaryTextView != null && HasStyleForKey(StyleKeySecondaryFont))
                 secondaryTextView.Font = (UIFont)GetStyleForKey(StyleKeySecondaryFont);
             if (HasStyleForKey(StyleKeyTertiaryFont))
                 tertiaryTextView.Font = (UIFont)GetStyleForKey(StyleKeyTertiaryFont);
@@ -98,7 +96,7 @@ namespace RedCorners.Forms.Ad.iOS
             // Font Colors
             if (HasStyleForKey(StyleKeyPrimaryFontColor))
                 primaryTextView.TextColor = (UIColor)GetStyleForKey(StyleKeyPrimaryFontColor);
-            if (HasStyleForKey(StyleKeySecondaryFontColor))
+            if (secondaryTextView != null && HasStyleForKey(StyleKeySecondaryFontColor))
                 secondaryTextView.TextColor = (UIColor)GetStyleForKey(StyleKeySecondaryFontColor);
             if (HasStyleForKey(StyleKeyTertiaryFontColor))
                 tertiaryTextView.TextColor = (UIColor)GetStyleForKey(StyleKeyTertiaryFontColor);
@@ -108,7 +106,7 @@ namespace RedCorners.Forms.Ad.iOS
             // Background Colors
             if (HasStyleForKey(StyleKeyPrimaryBackgroundColor))
                 primaryTextView.BackgroundColor = (UIColor)GetStyleForKey(StyleKeyPrimaryBackgroundColor);
-            if (HasStyleForKey(StyleKeySecondaryBackgroundColor))
+            if (secondaryTextView != null && HasStyleForKey(StyleKeySecondaryBackgroundColor))
                 secondaryTextView.BackgroundColor = (UIColor)GetStyleForKey(StyleKeySecondaryBackgroundColor);
             if (HasStyleForKey(StyleKeyTertiaryBackgroundColor))
                 tertiaryTextView.BackgroundColor = (UIColor)GetStyleForKey(StyleKeyTertiaryBackgroundColor);
@@ -129,13 +127,15 @@ namespace RedCorners.Forms.Ad.iOS
 
         void SetStyles(Dictionary<string, NSObject> styles)
         {
-            this.styles = styles;
+            this.Styles = styles;
             ApplyStyles();
         }
 
         public void SetNativeAd(UnifiedNativeAd nativeAd)
         {
             base.NativeAd = nativeAd;
+            IconView = brandImage;
+
             HeadlineView = primaryTextView;
             var adBody = nativeAd.Body;
             var cta = nativeAd.CallToAction;
@@ -170,7 +170,7 @@ namespace RedCorners.Forms.Ad.iOS
             // Body text
             // We either show the number of stars an app has, or show the body of the ad.
             // Use the unicode characters for filled in or empty stars.
-            if (nativeAd.StarRating.FloatValue > 0)
+            if (nativeAd.StarRating != null && nativeAd.StarRating.FloatValue > 0)
             {
                 var stars = "";
                 int count = 0;
@@ -183,15 +183,16 @@ namespace RedCorners.Forms.Ad.iOS
             }
             else BodyView = secondaryTextView;
 
-            secondaryTextView.Text = adBody;
+            if (secondaryTextView != null)
+                secondaryTextView.Text = adBody;
 
-            if (nativeAd.Icon != null)
-                ((UIImageView)IconView).Image = nativeAd.Icon.Image;
+            if (nativeAd.Icon != null && IconView is UIImageView iconImageView)
+                iconImageView.Image = nativeAd.Icon.Image;
 
             MediaView.MediaContent = nativeAd.MediaContent;
         }
 
-        void AddHorizontalConstraintsToSuperviewWidth()
+        public void AddHorizontalConstraintsToSuperviewWidth()
         {
             if (base.Superview == null) return;
 
@@ -200,7 +201,7 @@ namespace RedCorners.Forms.Ad.iOS
                 NSDictionary.FromObjectAndKey(child, new NSString("child"))));
         }
 
-        void AddVerticalCenterConstraintToSuperview()
+        public void AddVerticalCenterConstraintToSuperview()
         {
             if (base.Superview == null) return;
 

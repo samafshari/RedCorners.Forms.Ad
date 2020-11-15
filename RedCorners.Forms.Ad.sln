@@ -19,10 +19,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{5323EE32-765
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedCorners.Forms.Ad.Android", "RedCorners.Forms.Ad.Android\RedCorners.Forms.Ad.Android.csproj", "{9ECB3781-C48C-43AF-8471-3E43D1BEB590}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedCorners.Forms.Ad.Standard", "RedCorners.Forms.Ad.Standard\RedCorners.Forms.Ad.Standard.csproj", "{8E636F09-A10E-4D2A-91C3-29072EE5879C}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		RedCorners.Forms.Ad.Demo\RedCorners.Forms.Ad.Demo\RedCorners.Forms.Ad.Demo.projitems*{06140d74-10d7-4add-b376-de2edd730edd}*SharedItemsImports = 13
 		RedCorners.Forms.Ad.Shared\RedCorners.Forms.Ad.Shared.projitems*{29e5842d-1613-40dd-8302-ae6663ddd782}*SharedItemsImports = 13
+		RedCorners.Forms.Ad.Shared\RedCorners.Forms.Ad.Shared.projitems*{8e636f09-a10e-4d2a-91c3-29072ee5879c}*SharedItemsImports = 5
 		RedCorners.Forms.Ad.Shared\RedCorners.Forms.Ad.Shared.projitems*{9ecb3781-c48c-43af-8471-3e43d1beb590}*SharedItemsImports = 4
 		RedCorners.Forms.Ad.Demo\RedCorners.Forms.Ad.Demo\RedCorners.Forms.Ad.Demo.projitems*{aa245a1a-2c2c-4b3b-b5c8-5223fd2ffcc6}*SharedItemsImports = 4
 		RedCorners.Forms.Ad.Demo\RedCorners.Forms.Ad.Demo\RedCorners.Forms.Ad.Demo.projitems*{b101eacf-391a-43b3-9e70-f5f7a7bf6180}*SharedItemsImports = 4
@@ -89,6 +92,18 @@ Global
 		{9ECB3781-C48C-43AF-8471-3E43D1BEB590}.Release|iPhone.Build.0 = Release|Any CPU
 		{9ECB3781-C48C-43AF-8471-3E43D1BEB590}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{9ECB3781-C48C-43AF-8471-3E43D1BEB590}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{8E636F09-A10E-4D2A-91C3-29072EE5879C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E636F09-A10E-4D2A-91C3-29072EE5879C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E636F09-A10E-4D2A-91C3-29072EE5879C}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{8E636F09-A10E-4D2A-91C3-29072EE5879C}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{8E636F09-A10E-4D2A-91C3-29072EE5879C}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{8E636F09-A10E-4D2A-91C3-29072EE5879C}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{8E636F09-A10E-4D2A-91C3-29072EE5879C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E636F09-A10E-4D2A-91C3-29072EE5879C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E636F09-A10E-4D2A-91C3-29072EE5879C}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{8E636F09-A10E-4D2A-91C3-29072EE5879C}.Release|iPhone.Build.0 = Release|Any CPU
+		{8E636F09-A10E-4D2A-91C3-29072EE5879C}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{8E636F09-A10E-4D2A-91C3-29072EE5879C}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,6 +115,7 @@ Global
 		{AA245A1A-2C2C-4B3B-B5C8-5223FD2FFCC6} = {9482D1A8-D975-449C-A6D4-A1AF1D9666F3}
 		{B101EACF-391A-43B3-9E70-F5F7A7BF6180} = {9482D1A8-D975-449C-A6D4-A1AF1D9666F3}
 		{9ECB3781-C48C-43AF-8471-3E43D1BEB590} = {5323EE32-7655-4BCE-8A79-CA13CCEDB7FC}
+		{8E636F09-A10E-4D2A-91C3-29072EE5879C} = {5323EE32-7655-4BCE-8A79-CA13CCEDB7FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DE5F1734-E140-4340-9AF5-B563AB6430A6}

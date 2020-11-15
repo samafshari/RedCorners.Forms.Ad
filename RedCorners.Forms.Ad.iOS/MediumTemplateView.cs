@@ -11,6 +11,7 @@ using UIKit;
 
 namespace RedCorners.Forms.Ad.iOS
 {
+    [Register("GADTMediumTemplateView")]
     public class MediumTemplateView : TemplateView
     {
         public MediumTemplateView(CGRect frame) :

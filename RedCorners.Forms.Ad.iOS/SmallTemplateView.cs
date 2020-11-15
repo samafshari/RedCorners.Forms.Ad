@@ -11,6 +11,7 @@ using UIKit;
 
 namespace RedCorners.Forms.Ad.iOS
 {
+    [Register("GADTSmallTemplateView")]
     public class SmallTemplateView : TemplateView
     {
         public SmallTemplateView(CGRect frame) :

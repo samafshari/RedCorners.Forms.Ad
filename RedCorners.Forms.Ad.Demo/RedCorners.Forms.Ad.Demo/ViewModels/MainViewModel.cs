@@ -13,25 +13,11 @@ namespace RedCorners.Forms.Ad.Demo.ViewModels
 {
     public class MainViewModel : BindableModel
     {
-        public override bool IsModal => false;
-
-        public MainViewModel()
-        {
-            Status = TaskStatuses.Success;
-            Count = Settings.Instance.Count;
-        }
-
-        public int Count { get; set; }
-
-        public Command CountCommand => new Command(() =>
-        {
-            // Increase the count
-            Count++;
-            UpdateProperties();
-
-            // Store it in settings and save
-            Settings.Instance.Count = Count;
-            Signals.SaveSettings.Signal();
-        });
+        public Action AdClickedAction => () => 
+            Console.WriteLine("Clicked");
+        public Action AdClosedAction => () => 
+            Console.WriteLine("Closed");
+        public Action AdImpressionAction => () => 
+            Console.WriteLine("Impression");
     }
 }

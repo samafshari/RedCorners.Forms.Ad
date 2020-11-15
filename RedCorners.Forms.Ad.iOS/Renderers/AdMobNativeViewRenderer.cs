@@ -16,10 +16,12 @@ using Xamarin.Forms.Platform.iOS;
 namespace RedCorners.Forms.Ad.iOS.Renderers
 {
     public class AdMobNativeViewRenderer : ViewRenderer,
-        //IAdLoaderDelegate
+        IUnifiedNativeAdDelegate,
         IUnifiedNativeAdLoaderDelegate
     {
-        AdLoader adLoader;
+        AdLoader adLoader; 
+        AdMobNativeView View => Element as AdMobNativeView;
+
 
         public AdMobNativeViewRenderer() { }
 
@@ -45,21 +47,21 @@ namespace RedCorners.Forms.Ad.iOS.Renderers
             if (adLoader == null)
                 return;
 
-            var view = Element as AdMobNativeView;
+            View?.TriggerAdLoading();
+
             Device.BeginInvokeOnMainThread(() =>
-            adLoader.LoadRequest(view.AdMob.GetDefaultRequest()));
+            adLoader.LoadRequest(View.AdMob.GetDefaultRequest()));
         }
 
         void CreateAdLoader()
         {
-            var view = Element as AdMobNativeView;
-            if (view == null ||
-                string.IsNullOrWhiteSpace(view.UnitId) ||
-                view.AdMob == null)
+            if (View == null ||
+                string.IsNullOrWhiteSpace(View.UnitId) ||
+                View.AdMob == null)
                 return;
 
             adLoader = new AdLoader(
-                view.UnitId,
+                View.UnitId,
                 ViewController,
                 new[] { AdLoaderAdType.UnifiedNative },
                 new[] { new AdLoaderOptions() });
@@ -75,19 +77,70 @@ namespace RedCorners.Forms.Ad.iOS.Renderers
 
         public void DidFailToReceiveAd(AdLoader adLoader, RequestError error)
         {
-            Console.WriteLine("Failed");
+            View?.TriggerAdFailedToLoad((int)error.Code);
         }
 
         [Export("adLoader:didReceiveUnifiedNativeAd:")]
         public void DidReceiveUnifiedNativeAd(AdLoader adLoader, UnifiedNativeAd nativeAd)
         {
             Console.WriteLine("Received Ad!");
+            TemplateView templateView = View.NativeTemplate == AdMobNativeTemplates.Medium ?
+                (TemplateView)new MediumTemplateView(Frame) : new SmallTemplateView(Frame);
+            nativeAd.Delegate = this;
+            SetNativeControl(templateView);
+
+            templateView.SetNativeAd(nativeAd);
+            templateView.AddHorizontalConstraintsToSuperviewWidth();
+            templateView.AddVerticalCenterConstraintToSuperview();
+            View?.TriggerAdRendered();
         }
 
+        [Export("nativeAdDidRecordImpression:")]
         public void DidRecordImpression(UnifiedNativeAd nativeAd)
         {
-            Console.WriteLine("DidRecordImpression");
+            View?.TriggerAdImpression();
         }
 
+        [Export("nativeAdDidRecordClick:")]
+        public void DidRecordClick(UnifiedNativeAd nativeAd)
+        {
+            View?.TriggerAdClicked();
+        }
+
+        [Export("nativeAdWillPresentScreen:")]
+        public void WillPresentScreen(UnifiedNativeAd nativeAd)
+        {
+            View?.TriggerAdOpened();
+        }
+
+        [Export("nativeAdWillDismissScreen:")]
+        public void WillDismissScreen(UnifiedNativeAd nativeAd)
+        {
+
+        }
+
+        [Export("nativeAdDidDismissScreen:")]
+        public void DidDismissScreen(UnifiedNativeAd nativeAd)
+        {
+            View?.TriggerAdClosed();
+        }
+
+        [Export("nativeAdWillLeaveApplication:")]
+        public void WillLeaveApplication(UnifiedNativeAd nativeAd)
+        {
+            View?.TriggerAdLeftApplication();
+        }
+
+        [Export("nativeAdIsMuted:")]
+        public void IsMuted(UnifiedNativeAd nativeAd)
+        {
+
+        }
+
+        [Export("adLoaderDidFinishLoading:")]
+        public void DidFinishLoading(AdLoader adLoader)
+        {
+            View?.TriggerAdLoaded();
+        }
     }
 }
